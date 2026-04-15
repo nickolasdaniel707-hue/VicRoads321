@@ -30,13 +30,26 @@ cloudinary.config({
 const upload = multer({ storage: multer.memoryStorage() });
 
 app.post("/upload", upload.single("image"), (req, res) => {
+  console.log("Upload request received");
+
+  if (!req.file) {
+    console.log("No file uploaded");
+    return res.status(400).send("No file uploaded");
+  }
+
   const stream = cloudinary.uploader.upload_stream(
     { resource_type: "image" },
     (err, result) => {
-      if (err) return res.status(500).send(err);
+      if (err) {
+        console.log("UPLOAD ERROR:", err);
+        return res.status(500).send(err);
+      }
+
+      console.log("UPLOAD SUCCESS:", result.secure_url);
       res.json({ url: result.secure_url });
     }
   );
+
   stream.end(req.file.buffer);
 });
 
