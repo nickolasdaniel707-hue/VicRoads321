@@ -44,7 +44,12 @@ app.post("/save", async (req, res) => {
   res.json(user);
 });
 
-app.listen(5000, () => console.log("Server running"));
-app.get("/", (req, res) => {
-  res.send("It works ✅");
+import path from "path";
+
+const __dirname = new URL('.', import.meta.url).pathname;
+
+app.use(express.static(path.join(__dirname, "public")));
+
+app.get("*", (req, res) => {
+  res.sendFile(path.join(__dirname, "public", "index.html"));
 });
