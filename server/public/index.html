@@ -1,30 +1,8 @@
 <!DOCTYPE html>
 <html>
-<head>
-  <title>Upload App</title>
+  <head><title>Upload App</title>  <script type="module" crossorigin src="/assets/index-BRCoOAol.js"></script>
 </head>
-<body>
-  <h1>Upload Image</h1>
-
-  <input type="file" id="file" />
-  <button onclick="upload()">Upload</button>
-
-  <img id="preview" width="200"/>
-
-  <script>
-    async function upload() {
-      const file = document.getElementById("file").files[0];
-      const fd = new FormData();
-      fd.append("image", file);
-
-      const res = await fetch("/upload", {
-        method: "POST",
-        body: fd
-      });
-
-      const data = await res.json();
-      document.getElementById("preview").src = data.url;
-    }
-  </script>
-</body>
+  <body>
+    <div id="root"></div>
+  </body>
 </html>
