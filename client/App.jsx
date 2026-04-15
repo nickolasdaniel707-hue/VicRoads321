@@ -7,7 +7,7 @@ export default function App() {
     const fd = new FormData();
     fd.append("image", file);
 
-    const res = await fetch("http://localhost:5000/upload", {
+    const res = await fetch("/upload", {
       method: "POST",
       body: fd
     });
