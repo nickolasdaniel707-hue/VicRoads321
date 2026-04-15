@@ -1,8 +1,30 @@
 <!DOCTYPE html>
 <html>
-  <head><title>Upload App</title></head>
-  <body>
-    <div id="root"></div>
-    <script type="module" src="/main.jsx"></script>
-  </body>
+<head>
+  <title>Upload App</title>
+</head>
+<body>
+  <h1>Upload Image</h1>
+
+  <input type="file" id="file" />
+  <button onclick="upload()">Upload</button>
+
+  <img id="preview" width="200"/>
+
+  <script>
+    async function upload() {
+      const file = document.getElementById("file").files[0];
+      const fd = new FormData();
+      fd.append("image", file);
+
+      const res = await fetch("/upload", {
+        method: "POST",
+        body: fd
+      });
+
+      const data = await res.json();
+      document.getElementById("preview").src = data.url;
+    }
+  </script>
+</body>
 </html>
