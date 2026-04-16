@@ -6,7 +6,8 @@ export default function App() {
   const [id, setId] = useState("");
 
   const upload = async (file, setImage) => {
-    const fd = new FormData();
+    con
+    st fd = new FormData();
     fd.append("image", file);
 
     const res = await fetch("/upload", {
